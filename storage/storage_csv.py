@@ -8,6 +8,10 @@ class StorageCsv(FileStorage):
         """ Loads data from a CSV file """
         folder_name = 'data'
         self.file_path = os.path.join(folder_name, self.file_path)
+        directory = os.path.dirname(self.file_path)
+        # Check if the directory exists, if not, create it
+        if directory and not os.path.exists(directory):
+            os.makedirs(directory)
         if os.path.exists(self.file_path):
             with open(self.file_path, mode='r') as handle:
                 reader = csv.DictReader(handle)
