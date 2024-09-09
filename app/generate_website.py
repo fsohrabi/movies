@@ -18,13 +18,22 @@ def generate_html(movies):
     movie_grid_html = ''
     for movie in movies:
         movie_html = f'''
-          <li class="movie-item">
-              <div class="movie">
-                  <img class="movie-poster" src="{movie['poster']}" alt="{movie['title']}" title="{movie['note']}">
-                  <div class="movie-title">{movie['title']}</div>
-                  <div class="movie-year">{movie['year']}</div>
-              </div>
-          </li>
+        <div class="movie">
+            <div class="tooltip">
+                <a href="https://www.imdb.com/title/{movie['imdb_id']}/" target="_blank">
+                    <img class="movie-poster" src="{movie['poster']}" alt="Movie Poster">
+                </a>
+                <span class="tooltiptext">{movie['note']}</span>
+            </div>
+            <div class="movie-info">
+                <div class="movie-title">{movie['title']}</div>
+                <div class="movie-details">
+                    <span class="movie-year">{movie['year']}</span>
+                    <span class="movie-rating">⭐ {movie['rating']}</span>
+                </div>
+            </div>
+        </div>
+        
           '''
         movie_grid_html += movie_html
 

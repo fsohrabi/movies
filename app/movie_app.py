@@ -94,9 +94,11 @@ class MovieApp:
         """Add a new movie to the database."""
         title = get_movie_name('Enter new movie name: ')
         try:
-            year, rating, poster = omdb_api.get_movie_info(title)
-            print(f"Movie {title} successfully added") if self._storage.add_movie(title, year, rating, poster, note='') \
-                else print(f"Movie {title} already exist!")
+            year, rating, poster, imdb_id, country = omdb_api.get_movie_info(title)
+            if self._storage.add_movie(title, year, rating, poster, imdb_id, country):
+                print(f"Movie {title} successfully added")
+            else:
+                print(f"Movie {title} already exist!")
         except ValueError as e:
             print(e)
 

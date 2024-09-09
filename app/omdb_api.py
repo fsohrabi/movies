@@ -21,8 +21,9 @@ def get_movie_info(title):
         year = json_response.get('Year', 'N/A')
         imdb_rating = json_response.get('imdbRating', 'N/A')
         poster = json_response.get('Poster', 'N/A')
-
-        return int(year), float(imdb_rating), poster
+        imdb_id = json_response.get('imdbID', 'N/A')
+        country = json_response.get('Country', 'N/A')
+        return int(year), float(imdb_rating), poster, imdb_id, country
 
     except requests.exceptions.HTTPError as http_err:
         raise ValueError(f"HTTP error occurred: {http_err}")  # API returned an error status code

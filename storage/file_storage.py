@@ -36,12 +36,14 @@ class FileStorage(IStorage):
             self.movies = sorted(self.movies, key=lambda item: item['rating'], reverse=self.reverse_value)
         return self.movies
 
-    def add_movie(self, title, year, rating, poster, note):
+    def add_movie(self, title, year, rating, poster, imdb_id, country):
         """Add a new movie to the database."""
         for movie in self.movies:
             if movie['title'] == title:
                 return False  # Duplicate movie title
-        self.movies.append({'title': title, 'year': year, 'rating': rating, 'poster': poster, 'note': ''})
+        self.movies.append(
+            {'title': title, 'year': year, 'rating': rating, 'poster': poster, 'note': '', 'imdb_id': imdb_id,
+             'country': country})
         self.rewrite_data()
         return True
 

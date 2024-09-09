@@ -24,7 +24,7 @@ class StorageCsv(FileStorage):
     def rewrite_data(self):
         """ Write the updated movie data back to CSV storage. """
         with open(self.file_path, mode='w', newline='') as handle:
-            fieldnames = ['title', 'year', 'rating', 'poster', 'note']
+            fieldnames = ['title', 'year', 'rating', 'poster', 'note', 'imdb_id', 'country']
             writer = csv.DictWriter(handle, fieldnames=fieldnames)
             writer.writeheader()  # Write header
             writer.writerows(self.movies)  # Write all movies at once
