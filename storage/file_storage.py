@@ -36,14 +36,23 @@ class FileStorage(IStorage):
             self.movies = sorted(self.movies, key=lambda item: item['rating'], reverse=self.reverse_value)
         return self.movies
 
-    def add_movie(self, title, year, rating, poster):
+    def add_movie(self, title, year, rating, poster, note):
         """Add a new movie to the database."""
         for movie in self.movies:
             if movie['title'] == title:
                 return False  # Duplicate movie title
-        self.movies.append({'title': title, 'year': year, 'rating': rating, 'poster': poster})
-        self.rewrite_data()  # Persist changes to CSV
+        self.movies.append({'title': title, 'year': year, 'rating': rating, 'poster': poster, 'note': ''})
+        self.rewrite_data()
         return True
+
+    def update_movie(self, title, note):
+        """update movie from the database."""
+        for movie in self.movies:
+            if movie['title'] == title:
+                movie['note'] = note
+                self.rewrite_data()
+                return True
+        return False
 
     def delete_movie(self, title):
         """Delete a movie from the database by title."""

@@ -95,10 +95,17 @@ class MovieApp:
         title = get_movie_name('Enter new movie name: ')
         try:
             year, rating, poster = omdb_api.get_movie_info(title)
-            print(f"Movie {title} successfully added") if self._storage.add_movie(title, year, rating, poster) \
+            print(f"Movie {title} successfully added") if self._storage.add_movie(title, year, rating, poster, note='') \
                 else print(f"Movie {title} already exist!")
         except ValueError as e:
             print(e)
+
+    def _command_update_movie(self):
+        """update a movie from the database by title.Add note to the movie"""
+        title = get_movie_name('Enter movie name to update: ')
+        note = input('Enter movie note to update: ')
+        print(f"Movie {title} successfully updated") if self._storage.update_movie(title, note) \
+            else print(f"Movie {title} doesn't exist!")
 
     def _command_delete_movie(self):
         """Delete a movie from the database by title."""
@@ -148,6 +155,7 @@ class MovieApp:
         print_movies("Worst movie:", worst_movies, min_rating)
 
     def _command_generate_website(self):
+        """Generate An Html file from all movies in the list"""
         try:
             generate_html(self._storage.movies)
             print('Website was generated successfully.')
@@ -155,17 +163,19 @@ class MovieApp:
             print(e)
 
     def run(self):
+        """run command line"""
         help_str = """
            Menu:
            0. Exit
            1. List movies
            2. Add movie
            3. Delete movie
-           4. Stats
-           5. Random movie
-           6. Search movie
-           7. Movies sorted by rating
-           8. Generate website
+           4. Update movie
+           5. Stats
+           6. Random movie
+           7. Search movie
+           8. Movies sorted by rating
+           9. Generate website
            
 
 
@@ -178,11 +188,12 @@ class MovieApp:
             "1": self._command_list_movies,
             "2": self._command_add_movie,
             "3": self._command_delete_movie,
-            "4": self._command_movie_stats,
-            "5": self._command_random_movie,
-            "6": self._command_search_movie,
-            "7": self._command_movie_sorted_by_rating,
-            "8": self._command_generate_website
+            "4": self._command_update_movie,
+            "5": self._command_movie_stats,
+            "6": self._command_random_movie,
+            "7": self._command_search_movie,
+            "8": self._command_movie_sorted_by_rating,
+            "9": self._command_generate_website
         }
         print(welcome)
         while True:

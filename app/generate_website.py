@@ -20,7 +20,7 @@ def generate_html(movies):
         movie_html = f'''
           <li class="movie-item">
               <div class="movie">
-                  <img class="movie-poster" src="{movie['poster']}" alt="{movie['title']}" title="{movie['title']}">
+                  <img class="movie-poster" src="{movie['poster']}" alt="{movie['title']}" title="{movie['note']}">
                   <div class="movie-title">{movie['title']}</div>
                   <div class="movie-year">{movie['year']}</div>
               </div>
